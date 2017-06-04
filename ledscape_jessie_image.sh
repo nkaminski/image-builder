@@ -3,19 +3,19 @@
 time=$(date +%Y-%m-%d)
 DIR="$PWD"
 
-./RootStock-NG.sh -c bb.org-debian-jessie-console-v4.4
+./RootStock-NG.sh -c ledscape-debian-jessie-console-v4.4
 
- debian_jessie_console="debian-8.8-console-armhf-${time}"
+ debian_jessie_console="debian-8.8-console-ledscape-armhf-${time}"
 
 archive="xz -z -2 -v"
 
-beaglebone="--dtb beaglebone --bbb-old-bootloader-in-emmc --hostname beaglebone"
+beaglebone="--dtb beaglebone --bbb-old-bootloader-in-emmc --hostname ledscape-bbb"
 
 beaglebone_console="--dtb beaglebone --bbb-old-bootloader-in-emmc \
---hostname beaglebone"
+--hostname ledscape-bbb"
 
 bb_blank_flasher_console="--dtb bbb-blank-eeprom --bbb-old-bootloader-in-emmc \
---hostname beaglebone"
+--hostname ledscape-bbb"
 
 cat > ${DIR}/deploy/gift_wrap_final_images.sh <<-__EOF__
 #!/bin/bash
