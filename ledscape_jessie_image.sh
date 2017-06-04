@@ -3,7 +3,7 @@
 time=$(date +%Y-%m-%d)
 DIR="$PWD"
 
-./RootStock-NG.sh -c ledscape-debian-jessie-console-v4.4
+./RootStock-NG.sh -c ledscape-debian-jessie-console-v4.4 -u cmew2017 -p $1
 
  debian_jessie_console="debian-8.8-console-ledscape-armhf-${time}"
 

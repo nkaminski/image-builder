@@ -386,7 +386,12 @@ esac
 
 if [ "x${repo_external}" = "xenable" ] ; then
 	echo "" >> ${wfile}
-	echo "deb [arch=${repo_external_arch}] ${repo_external_server} ${repo_external_dist} ${repo_external_components}" >> ${wfile}
+	if [[ ( -n ${repo_external_user} ) && ( -n ${repo_external_pass} ) ]] ; then
+		echo "deb [arch=${repo_external_arch}] ${repo_external_server} ${repo_external_dist} ${repo_external_components}" | \
+			sed "s/:\/\/*/:\/\/${repo_external_user}:${repo_external_pass}@/" >> ${wfile}
+	else
+		echo "deb [arch=${repo_external_arch}] ${repo_external_server} ${repo_external_dist} ${repo_external_components}" >> ${wfile}
+	fi
 	echo "#deb-src [arch=${repo_external_arch}] ${repo_external_server} ${repo_external_dist} ${repo_external_components}" >> ${wfile}
 fi
 

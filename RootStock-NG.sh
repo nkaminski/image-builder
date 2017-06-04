@@ -114,6 +114,13 @@ check_project_config () {
 
 		echo "tempdir=\"${tempdir}\"" > ${DIR}/.project
 		echo "time=\"${time}\"" >> ${DIR}/.project
+
+		if [ -n "${repo_external_user}" ] ; then
+			echo "repo_external_user=\"${repo_external_user}\"" >> ${DIR}/.project
+		fi
+		if [ -n "${repo_external_pass}" ] ; then
+			echo "repo_external_pass=\"${repo_external_pass}\"" >> ${DIR}/.project
+		fi
 		echo "export_filename=\"${export_filename}\"" >> ${DIR}/.project
 		echo "#" >> ${DIR}/.project
 		m4 -P ${DIR}/configs/${project_config}.conf >> ${DIR}/.project
@@ -147,10 +154,15 @@ while [ ! -z "$1" ] ; do
 	-h|--help)
 		usage
 		;;
+	-u|--remote-user)
+		repo_external_user="$2"
+		;;
+	-p|--remote-pass)
+		repo_external_pass="$2"
+		;;
 	-c|-C|--config)
 		checkparm $2
 		project_config="$2"
-		check_project_config
 		;;
 	--saved-config)
 		check_saved_config
@@ -159,6 +171,10 @@ while [ ! -z "$1" ] ; do
 	shift
 done
 
-run_roostock_ng
+#Must be done after all option parsing
+if [ "${project_config}" ] ; then
+	check_project_config
+fi
 
+run_roostock_ng
 #
